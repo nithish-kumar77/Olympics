@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olympics|Events Medals</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+{% include 'basenav.html' %}
+<div class="carousel-container">
+    <div class="carousel">
+        <img src="{{ url_for('static', filename='images/paris.png') }}" alt="Photo 1">
+        <img src="{{ url_for('static', filename='images/image1.jpg') }}" alt="Photo 2">
+        <img src="{{ url_for('static', filename='images/image2.jpg') }}" alt="Photo 3">
+        <img src="{{ url_for('static', filename='images/images3.jpg') }}" alt="Photo 4">
+    </div>
+</div>
+
+<h1>Olympic Medals in Paris 2024</h1>
+<div style="width: 80%; margin: auto; margin-bottom: 30px;">
+        <canvas id="medalsGraph" width="400" height="200"></canvas>
+    </div>
+<div style="margin-top: 20px; text-align: center;">
+    <a href="/add-country" class="modern-btn">Add Country</a>
+</div>
+<br>
+<div style="margin: 20px 0; text-align: center;">
+    <input type="text" id="searchMedals" placeholder="Search..." style="padding: 8px; width: 300px;">
+</div>
+<table id="medalsTable">
+    <thead>
+    <tr>
+        <th>Country code</th>
+        <th>Country</th>
+        <th>Country long</th>
+        <th>Gold</th>
+        <th>Silver</th>
+        <th>Bronze</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for medal in medals %}
+    <tr>
+        <td>{{ medal.countrycode }}</td>
+        <td>{{ medal.country }}</td>
+        <td>{{ medal.countrylong }}</td>
+        <td>{{ medal.gold }}</td>
+        <td>{{ medal.silver }}</td>
+        <td>{{ medal.bronze }}</td>
+        <td>{{ medal.total }}</td>
+        <td><a href="{{ url_for('view_country', countrycode=medal.countrycode) }}" class="view-btn">--></a></td>
+        <td>
+                    <a href="{{ url_for('update_medal', countrycode=medal.countrycode) }}" class="modern-btn">Update</a>
+        </td>
+        <td>
+                        <!-- Delete Button -->
+                        <form action="{{ url_for('delete_country', countrycode=medal.countrycode) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-danger" onclick="return confirmDeletion('{{ medal.country }}')">Delete</button>
+                        </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<script id="medalData" type="application/json">
+    {{ medals | tojson }}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

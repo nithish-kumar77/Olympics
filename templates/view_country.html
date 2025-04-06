@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Country Details</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js -->
+    <script src="/static/script.js"></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    {% include 'basenav.html' %}
+    <br>
+    <br>
+    <br>
+    <h1>Country Details</h1>
+    <table border="1">
+        <tr>
+            <th>Country Code</th>
+            <td>{{ country.countrycode }}</td>
+        </tr>
+        <tr>
+            <th>Country</th>
+            <td>{{ country.country }}</td>
+        </tr>
+        <tr>
+            <th>Gold</th>
+            <td>{{ country.gold }}</td>
+        </tr>
+        <tr>
+            <th>Silver</th>
+            <td>{{ country.silver }}</td>
+        </tr>
+        <tr>
+            <th>Bronze</th>
+            <td>{{ country.bronze }}</td>
+        </tr>
+        <tr>
+            <th>Total</th>
+            <td>{{ country.total }}</td>
+        </tr>
+    </table>
+
+    <div class="chart-container">
+        <h2>Medal Distribution</h2>
+        <canvas id="medalsChart"></canvas>
+    </div>
+
+    <script>
+        // Pass medal data dynamically to the script
+        const goldCount = {{ country.gold }};
+        const silverCount = {{ country.silver }};
+        const bronzeCount = {{ country.bronze }};
+
+        // Initialize the chart
+        initializeMedalsChart(goldCount, silverCount, bronzeCount);
+    </script>
+
+    <br>
+    <br>
+
+    <h1>Tables</h1>
+    <div style="text-align: center; margin-bottom: 20px;">
+        <button onclick="showTable('players')" class="modern-btn">Players</button>
+        <button onclick="showTable('medalists')" class="modern-btn">Medalists</button>
+    </div>
+
+    <!-- Players Table -->
+    <div id="playersSection">
+        <h1>Players</h1>
+        <div style="margin-bottom: 10px; text-align:center">
+        <a href="{{ url_for('add_player', countrycode=country.countrycode) }}" class="modern-btn">Add Player</a>
+        </div>
+        <br>
+        <div style="text-align: center; margin-bottom: 10px;">
+            <input type="text" id="searchPlayers" placeholder="Search players..." style="padding: 5px; width: 300px;">
+        </div>
+        <table id="playersTable" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Country Code</th>
+                    <th>Country</th>
+                    <th>Events</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players %}
+                <tr>
+                    <td>{{ player.id }}</td>
+                    <td>{{ player.name }}</td>
+                    <td>{{ player.gender }}</td>
+                    <td>{{ player.countrycode }}</td>
+                    <td>{{ player.country }}</td>
+                    <td>{{ player.events }}</td>
+                    <td><a href="{{ url_for('update_player', player_id=player.id) }}" class="modern-btn">Update</a></td>
+                    <td>
+                        <form action="{{ url_for('delete_player', player_id=player.id) }}" method="POST" style="display: inline-block;"
+                              onsubmit="return confirm('Are you sure you want to delete this player?');">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="8">No players found for this country.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Medalists Table -->
+    <div id="medalistsSection" class="hidden">
+        <h1>Medalists</h1>
+        <div style="margin-bottom: 10px; text-align:center">
+        <a href="{{ url_for('add_medalist', countrycode=country.countrycode) }}" class="modern-btn">Add Medalist</a>
+        </div>
+        <br>
+        <div style="text-align: center; margin-bottom: 10px;">
+        <input type="text" id="searchMedalists" placeholder="Search medalists..." style="padding: 5px; width: 300px;">
+        </div>
+
+        <table id="medalistsTable" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Medal</th>
+                    <th>Country Code</th>
+                    <th>Country</th>
+                    <th>Event</th>
+                    <th>Event Url</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for medalist in medalists %}
+                <tr>
+                    <td>{{ medalist.id }}</td>
+                    <td>{{ medalist.name }}</td>
+                    <td>{{ medalist.gender }}</td>
+                    <td>{{ medalist.medal_type }}</td>
+                    <td>{{ medalist.countrycode }}</td>
+                    <td>{{ medalist.country }}</td>
+                    <td>{{ medalist.event }}</td>
+                    <td><a href="{{ medalist.event_url }}" target="_blank">{{ medalist.event_url }}</a></td>
+                    <td><a href="{{ url_for('edit_medalist', medalist_id=medalist.id) }}" class="modern-btn">Update</a></td>
+                    <td>
+                    <form action="{{ url_for('delete_medalist', medalist_id=medalist.id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Are you sure you want to delete this medalist?');">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="8">No medalists found for this country.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function showTable(table) {
+            document.getElementById('playersSection').classList.add('hidden');
+            document.getElementById('medalistsSection').classList.add('hidden');
+
+            if (table === 'players') {
+                document.getElementById('playersSection').classList.remove('hidden');
+            } else if (table === 'medalists') {
+                document.getElementById('medalistsSection').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

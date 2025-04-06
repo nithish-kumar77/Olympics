@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add Country</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    {% include 'basenav.html' %}
+    <br>
+    <br>
+     <main style="margin: 50px auto; max-width: 600px;">
+        <h1>Add a Country</h1>
+        <form method="POST" id="add-country-form">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><label for="countrycode">Country Code:</label></td>
+                        <td>
+                            <input type="text" id="countrycode" name="countrycode" class="form-input" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="country">Country Name:</label></td>
+                        <td>
+                            <input type="text" id="country" name="country" class="form-input" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="countrylong">Country Full Name:</label></td>
+                        <td>
+                            <input type="text" id="countrylong" name="countrylong" class="form-input" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="gold">Gold Medals:</label></td>
+                        <td>
+                            <input type="number" id="gold" name="gold" class="form-input" min="0" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="silver">Silver Medals:</label></td>
+                        <td>
+                            <input type="number" id="silver" name="silver" class="form-input" min="0" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="bronze">Bronze Medals:</label></td>
+                        <td>
+                            <input type="number" id="bronze" name="bronze" class="form-input" min="0" required>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="text-align: center; margin-top: 20px;">
+                <button type="submit" class="btn">Add Country</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

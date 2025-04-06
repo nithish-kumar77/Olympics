@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Update Medal Counts</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    {% include 'basenav.html' %}
+    <br>
+    <br>
+    <br>
+    <main style="margin: 50px auto; max-width: 600px;">
+        <h1>Update Medal Counts for {{ medal.country }}</h1>
+        <form action="" method="POST" id="update-medal-form">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Medal Type</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><label for="gold">Gold</label></td>
+                        <td>
+                            <input type="number" id="gold" name="gold" class="form-input" value="{{ medal.gold }}" min="0" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="silver">Silver</label></td>
+                        <td>
+                            <input type="number" id="silver" name="silver" class="form-input" value="{{ medal.silver }}" min="0" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="bronze">Bronze</label></td>
+                        <td>
+                            <input type="number" id="bronze" name="bronze" class="form-input" value="{{ medal.bronze }}" min="0" required>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="text-align: center; margin-top: 20px;">
+                <button type="submit" class="btn">Update Medal Counts</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

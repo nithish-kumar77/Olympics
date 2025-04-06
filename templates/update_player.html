@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Update Player</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    {% include 'basenav.html' %}
+    <br>
+    <br>
+    <br>
+    <main style="margin: 50px auto; max-width: 600px;">
+        <h1>Update Player Details</h1>
+        <form action="" method="POST" id="update-player-form">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><label for="name">Player Name:</label></td>
+                        <td>
+                            <input type="text" id="name" name="name" class="form-input" value="{{ player.name }}" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="gender">Gender:</label></td>
+                        <td>
+                            <select id="gender" name="gender" class="form-input" required>
+                                <option value="Male" {% if player.gender == "Male" %}selected{% endif %}>Male</option>
+                                <option value="Female" {% if player.gender == "Female" %}selected{% endif %}>Female</option>
+                                <option value="Other" {% if player.gender == "Other" %}selected{% endif %}>Other</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="events">Events:</label></td>
+                        <td>
+                            <input type="text" id="events" name="events" class="form-input" value="{{ player.events }}" required>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="text-align: center; margin-top: 20px;">
+                <button type="submit" class="btn">Update Player</button>
+            </div>
+        </form>
+    </main>
+    <br>
+    <a href="{{ url_for('view_country', countrycode=player.countrycode) }}" class="btn">Back to Players</a>
+</body>
+</html>

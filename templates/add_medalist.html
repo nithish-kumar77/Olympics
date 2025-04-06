@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add Medalist</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<h1>Add Medalist for {{ country.country }}</h1>
+
+<form class="medalist-add-form" action="{{ url_for('add_medalist', countrycode=country.countrycode) }}" method="POST">
+    <table border="1">
+        <tbody>
+        <tr>
+            <td><label for="name">Name:</label></td>
+            <td><input type="text" name="name" id="name" required></td>
+        </tr>
+        <tr>
+            <td><label for="gender">Gender:</label></td>
+
+            <td>
+                <select id="gender" name="gender" class="form-input" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="medal_type">Medal Type:</label></td>
+            <td>
+                <select name="medal_type" id="medal_type" required>
+                    <option value="Gold">Gold</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Bronze">Bronze</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="event">Event:</label></td>
+            <td><input type="text" name="event" id="event" required></td>
+        </tr>
+        <tr>
+            <td><label for="event_url">Event URL:</label></td>
+            <td><input type="url" name="event_url" id="event_url" required></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;">
+                <button type="submit">Add Medalist</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+
+<br>
+<a href="{{ url_for('view_country', countrycode=country.countrycode) }}">Back to Country</a>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Event</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    {% include 'basenav.html' %}
+    <br>
+    <br>
+    <br>
+    <main style="margin: 50px auto; max-width: 600px;">
+        <h1>Edit Event</h1>
+        <form action="" method="POST" id="edit-event-form">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><label for="event">Event:</label></td>
+                        <td>
+                            <input type="text" id="event" name="event" class="form-input" value="{{ event.event }}" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="tag">Tag:</label></td>
+                        <td>
+                            <input type="text" id="tag" name="tag" class="form-input" value="{{ event.tag }}" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="sport">Sport:</label></td>
+                        <td>
+                            <input type="text" id="sport" name="sport" class="form-input" value="{{ event.sport }}" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="sport_code">Sport Code:</label></td>
+                        <td>
+                            <input type="text" id="sport_code" name="sport_code" class="form-input" value="{{ event.sport_code }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="sport_url">Sport URL:</label></td>
+                        <td>
+                            <input type="url" id="sport_url" name="sport_url" class="form-input" value="{{ event.sport_url }}">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="text-align: center; margin-top: 20px;">
+                <button type="submit" class="btn">Update Event</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

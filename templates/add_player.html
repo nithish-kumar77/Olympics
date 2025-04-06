@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add Player</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    {% include 'basenav.html' %}
+    <br>
+    <br>
+   <main style="margin: 50px auto; max-width: 600px;">
+        <h1>Add Player for {{ country.country }}</h1>
+        <form action="" method="POST" id="add-player-form">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><label for="name">Player Name:</label></td>
+                        <td>
+                            <input type="text" id="name" name="name" class="form-input" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="gender">Gender:</label></td>
+                        <td>
+                            <select id="gender" name="gender" class="form-input" required>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="events">Events:</label></td>
+                        <td>
+                            <input type="text" id="events" name="events" class="form-input" required>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="text-align: center; margin-top: 20px;">
+                <button type="submit" class="btn">Add Player</button>
+            </div>
+        </form>
+    </main>
+    <br>
+    <a href="{{ url_for('view_country', countrycode=country.countrycode) }}" class="btn">Back to Country Details</a>
+</body>
+</html>

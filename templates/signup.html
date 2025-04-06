@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    {% include 'basenav.html' %}
+    <br>
+    <br>
+    <br>
+    <h1>Sign Up</h1>
+    <form method="POST">
+        <table style="margin: 20px auto; border: none; border-spacing: 10px;">
+            <tr>
+                <td><label for="username">Username:</label></td>
+                <td><input type="text" id="username" name="username" required></td>
+            </tr>
+            <tr>
+                <td><label for="password">Password:</label></td>
+                <td><input type="password" id="password" name="password" required></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <button type="submit" style="padding: 10px 20px;" class="btn signup-btn">Sign Up</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <p style="text-align: center;">Already have an account? <a href="/signin">Login here</a>.</p>
+</body>
+</html>
